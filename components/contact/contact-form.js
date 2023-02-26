@@ -19,9 +19,9 @@ const ContactForm = () => {
       headers: {
         "Content-type": "application/json",
       },
-    }).then((res) => {
-      console.log(res);
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data.data));
   };
   return (
     <section className={styles.contact}>
