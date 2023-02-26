@@ -1,8 +1,15 @@
 import ReactMarkdown from "react-markdown";
+import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
+import atomDark from "react-syntax-highlighter/dist/cjs/styles/prism/atom-dark";
+import js from "react-syntax-highlighter/dist/cjs/languages/prism/javascript";
+import css from "react-syntax-highlighter/dist/cjs/languages/prism/css";
 
 import PostHeader from "./post-header";
 import styles from "./post-content.module.css";
 import Image from "next/image";
+
+SyntaxHighlighter.registerLanguage("js", js);
+SyntaxHighlighter.registerLanguage("css", css);
 
 const PostContent = (props) => {
   const { post } = props;
@@ -25,6 +32,18 @@ const PostContent = (props) => {
         );
       }
       return <p>{paragraph.children}</p>;
+    },
+
+    code(code) {
+      const { children, className } = code;
+      const language = className.split("-")[1];
+      return (
+        <SyntaxHighlighter
+          language={language}
+          children={children}
+          style={atomDark}
+        ></SyntaxHighlighter>
+      );
     },
   };
 
